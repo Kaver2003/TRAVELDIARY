@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.transition-colors {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+
+.travel-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.travel-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.btn-outline {
+    transition: all 0.3s ease;
+}
+
+.btn-outline:hover {
+    transform: translateX(-3px);
+}
+
+.main-gallery-image {
+    transition: opacity 0.3s ease;
+}
+
+.gallery-thumbnail {
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.gallery-thumbnail:hover {
+    transform: scale(1.05);
+}
+
+.nav-link {
+    position: relative;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: #3b82f6;
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+
+main {
+    min-height: calc(100vh - 120px); /* Вычитаем высоту навбара и футера */
+}
