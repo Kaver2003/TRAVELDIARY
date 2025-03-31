@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/TRAVELDIARY/static/css/main.c64cfb8b.css",
-    "main.js": "/TRAVELDIARY/static/js/main.d689a5d4.js",
+    "main.js": "/TRAVELDIARY/static/js/main.6db0088b.js",
     "index.html": "/TRAVELDIARY/index.html",
     "main.c64cfb8b.css.map": "/TRAVELDIARY/static/css/main.c64cfb8b.css.map",
-    "main.d689a5d4.js.map": "/TRAVELDIARY/static/js/main.d689a5d4.js.map"
+    "main.6db0088b.js.map": "/TRAVELDIARY/static/js/main.6db0088b.js.map"
   },
   "entrypoints": [
     "static/css/main.c64cfb8b.css",
-    "static/js/main.d689a5d4.js"
+    "static/js/main.6db0088b.js"
   ]
 }
