@@ -35,7 +35,6 @@ export const uploadTravelImages = async (files) => {
 };
 
 export const getCoordinates = async (address) => {
-    // Интеграция с Geocoding API
     const response = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(address)}.json?access_token=YOUR_TOKEN`);
     const data = await response.json();
     return data.features[0]?.center || null;

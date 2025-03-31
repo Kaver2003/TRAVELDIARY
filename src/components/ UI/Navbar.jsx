@@ -1,32 +1,56 @@
-import React from 'react';
-import {useAuth} from "../../context/AuthContext";
-import {Link} from "react-router-dom";
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { FiMenu, FiX } from 'react-icons/fi';
 
-function Navbar(props) {
-    const {user, logout} = useAuth();
+const Navbar = () => {
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     return (
-        <nav className="bg-white shadow-sm">
-            <div className="container mx-auto px-4 py-3 flex justify-between items-center">
-                <Link to="/" className="text-xl font-bold">TravelDiary</Link>
-                <div className="flex items-center space-x-4">
-                    {user ? (
-                        <>
-                            <Link to="/profile" className="hover:text-blue-600">Профиль</Link>
-                            <button onClick={logout} className="hover:text-blue-600">Выйти</button>
-                        </>
-                    ) : (
-                        <>
-                            <Link to="/login" className="hover:text-blue-600">Вход</Link>
-                            <Link to="/register" className="hover:text-blue-600">Регистрация</Link>
-                        </>
-                    )}
+        <nav className="bg-gray-200 shadow-sm fixed w-full z-50">
+            <div className="container mx-auto px-4">
+                <div className="flex justify-between items-center h-16">
+
+                    <Link to="/" className="flex items-center">
+            <span className="text-xl font-bold">
+              <span className="text-blue-600">Travel</span>
+              <span className="text-green-600">Diary</span>
+            </span>
+                    </Link>
+
+                    <div className="hidden md:flex space-x-6">
+                        <Link to="/explore" className="nav-link">Исследовать</Link>
+                        <Link to="/add-travel" className="nav-link">Добавить</Link>
+                    </div>
+
+                    <button
+                        className="md:hidden text-gray-700"
+                        onClick={() => setIsMenuOpen(!isMenuOpen)}
+                    >
+                        {isMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
+                    </button>
                 </div>
+
+                {isMenuOpen && (
+                    <div className="md:hidden py-2 space-y-2">
+                        <Link
+                            to="/explore"
+                            className="block px-4 py-2 hover:bg-gray-100"
+                            onClick={() => setIsMenuOpen(false)}
+                        >
+                            Исследовать
+                        </Link>
+                        <Link
+                            to="/add-travel"
+                            className="block px-4 py-2 hover:bg-gray-100"
+                            onClick={() => setIsMenuOpen(false)}
+                        >
+                            Добавить путешествие
+                        </Link>
+                    </div>
+                )}
             </div>
         </nav>
-    )
-
-
-}
+    );
+};
 
 export default Navbar;

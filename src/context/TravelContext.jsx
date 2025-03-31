@@ -1,44 +1,26 @@
-import {createContext, useContext, useState} from "react";
+import { createContext, useState, useContext } from 'react';
+import { mockTravels } from '../data/mockTravels';
 
 const TravelContext = createContext();
 
 export const TravelProvider = ({ children }) => {
-    const [currentTravel, setCurrentTravel] = useState(null);
-    const [featuredTravels, setFeaturedTravels] = useState([]);
-    const [recentTravels, setRecentTravels] = useState([]);
+    const [travels, setTravels] = useState(mockTravels);
 
-    const fetchTravelById = async (id) => {
-        try {
-            const response = await fetch(`/api/travels/${id}`);
-            const data = await response.json();
-            setCurrentTravel(data);
-            return data;
-        } catch (error) {
-            console.error('Failed to fetch travel:', error);
-            throw error;
-        }
-    };
-
-    const createTravel = async (travelData) => {
-        // Логика создания нового путешествия
-    };
-
-    const searchTravels = async (filters = {}) => {
-        // Логика поиска с фильтрами
+    const addTravel = (newTravel) => {
+        setTravels([...travels, { ...newTravel, id: Date.now() }]);
     };
 
     return (
-        <TravelContext.Provider value={{
-            currentTravel,
-            featuredTravels,
-            recentTravels,
-            fetchTravelById,
-            createTravel,
-            searchTravels
-        }}>
+        <TravelContext.Provider value={{ travels, addTravel }}>
             {children}
         </TravelContext.Provider>
     );
 };
 
-export const useTravel = () => useContext(TravelContext);
+export const useTravel = () => {
+    const context = useContext(TravelContext);
+    if (context === undefined) {
+        throw new Error('useTravel must be used within a TravelProvider');
+    }
+    return context;
+};

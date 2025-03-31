@@ -1,37 +1,30 @@
-function Input({
+const Input = ({
                    label,
-                   name,
-                   type = 'text',
                    value,
                    onChange,
-                   error,
+                   type = 'text',
+                   className = '',
+                   required = false,
                    ...props
-               }) {
-    const handleChange = (e) => {
-        if (onChange) {
-            onChange(e.target.value);
-        }
-    };
-
+               }) => {
     return (
-        <div className="space-y-1">
+        <div className={`space-y-1 ${className}`}>
             {label && (
-                <label htmlFor={name} className="block text-sm font-medium text-gray-700">
+                <label className="block text-sm font-medium text-gray-700">
                     {label}
+                    {required && <span className="text-red-500">*</span>}
                 </label>
             )}
             <input
-                id={name}
-                name={name}
                 type={type}
                 value={value}
-                onChange={handleChange}
-                className={`block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm ${error ? 'border-red-500' : 'border'}`}
+                onChange={(e) => onChange(e.target.value)}
+                className={`block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border p-2 ${className}`}
+                required={required}
                 {...props}
             />
-            {error && <p className="text-sm text-red-600">{error}</p>}
         </div>
     );
-}
+};
 
 export default Input;

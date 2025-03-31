@@ -1,16 +1,16 @@
-import React from 'react';
+const FileInput = ({ onChange, multiple = false, className = '' }) => {
+    const handleChange = (e) => {
+        const files = Array.from(e.target.files);
+        if (files.length > 0) {
+            onChange(files);
+        }
+    };
 
-function FileInput({label, onChange, multiple = false, className = ''}) {
     return (
         <div className={`space-y-1 ${className}`}>
-            {label && (
-                <label className="block text-sm font-medium text-gray-700">
-                    {label}
-                </label>
-            )}
             <input
                 type="file"
-                onChange={onChange}
+                onChange={handleChange}
                 multiple={multiple}
                 className="block w-full text-sm text-gray-500
           file:mr-4 file:py-2 file:px-4
@@ -21,6 +21,6 @@ function FileInput({label, onChange, multiple = false, className = ''}) {
             />
         </div>
     );
-}
+};
 
 export default FileInput;

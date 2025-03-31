@@ -1,26 +1,43 @@
-import React, { useState, useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 import HeroSection from '../components/Sections/HeroSection';
-import WelcomeBack from '../components/Sections/WelcomeBack';
+
 import Section from '../components/Sections/Section';
 import TravelList from '../components/Travel/TravelList';
-import { useAuth } from '../context/AuthContext';
-import { fetchUserTravels } from '../services/travel';
+
+import {mockTravels} from '../data/mockTravels';
 
 const Home = () => {
-    const { user } = useAuth();
-    const [featuredTravels, setFeaturedTravels] = useState([]);
+    const [travels, setTravels] = useState([]);
 
     useEffect(() => {
-        fetchUserTravels().then(setFeaturedTravels);
+        const loadTravels = () => {
+            try {
+                const savedTravels = JSON.parse(localStorage.getItem('travels')) || [];
+                setTravels(savedTravels.slice(-6).reverse());
+            } catch (error) {
+                console.error('Ошибка загрузки путешествий:', error);
+                setTravels([]);
+            }
+        };
+
+        loadTravels();
+        window.addEventListener('storage', loadTravels);
+        return () => window.removeEventListener('storage', loadTravels);
     }, []);
 
     return (
-        <div>
-            <HeroSection />
-            {user && <WelcomeBack user={user} />}
-            <Section title="Популярные путешествия">
-                <TravelList travels={featuredTravels} />
+        <div className=" min-h-screen">
+            <HeroSection/>
+
+            {travels.length > 0 && (<div className="container mx-auto py-8 px-4">
+                <h1 className="text-2xl font-bold m-7 text-center">Последние добавленные путешествия</h1>
+                <TravelList travels={travels}/>
+            </div>)}
+            <Section className="container mx-auto px-4 " title="Популярные путешествия других пользователей">
+                <TravelList travels={mockTravels.slice(-6).reverse()} />
             </Section>
+
+
         </div>
     );
 };

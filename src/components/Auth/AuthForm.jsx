@@ -1,10 +1,7 @@
 import Button from "../ UI/Button";
 import Input from "../ UI/Input";
 
-function AuthForm ({ type, onSubmit, loading })  {
-    // type: 'login' | 'register'
-    // Общие поля: email, password
-    // Для регистрации: + username, confirmPassword
+function AuthForm({type, onSubmit, loading}) {
 
     return (
         <form onSubmit={onSubmit} className="space-y-4">
